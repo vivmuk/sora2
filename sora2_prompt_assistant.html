@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sora 2 Prompt Assistant | Professional Cinematic Prompts</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #818cf8;
+      --secondary: #8b5cf6;
+      --accent: #ec4899;
+      --bg-main: #fafbff;
+      --bg-secondary: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: rgba(99, 102, 241, 0.08);
+      --shadow-hover: rgba(99, 102, 241, 0.15);
+      --success: #10b981;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg-main);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background pattern */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(99, 102, 241, 0.2);
+      border-radius: 50%;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+      10%, 90% { opacity: 0.3; }
+      50% { transform: translateY(-100vh) translateX(100px); }
+    }
+
+    header {
+      position: relative;
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      z-index: 10;
+      box-shadow: 0 1px 3px var(--shadow);
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.75rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+      animation: fadeInDown 0.8s ease-out;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+      font-weight: 400;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      animation: fadeIn 0.6s ease-out;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 1px 3px var(--shadow);
+    }
+
+    .section:hover {
+      box-shadow: 0 4px 12px var(--shadow-hover);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section h2 i {
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+
+    /* Accordion styles */
+    .accordion {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      background: var(--bg-main);
+      transition: all 0.3s ease;
+    }
+
+    .accordion:hover {
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .accordion-header {
+      padding: 1rem 1.25rem;
+      background: var(--bg-secondary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .accordion-header:hover {
+      background: var(--bg-main);
+    }
+
+    .accordion-header.active {
+      border-bottom-color: var(--border);
+      background: var(--bg-main);
+    }
+
+    .accordion-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .accordion-title i {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .accordion-icon {
+      color: var(--primary);
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-header.active .accordion-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 1.25rem;
+    }
+
+    .accordion-content.active {
+      max-height: 2000px;
+      padding: 1rem 1.25rem;
+    }
+
+    .accordion-content p, .accordion-content ul {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .accordion-content strong {
+      color: var(--text);
+    }
+
+    .accordion-content em {
+      color: var(--primary);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 8px 24px var(--shadow-hover);
+    }
+
+    .card h3 {
+      color: var(--text);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card h3 i {
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .card p, .card ul {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .input-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+
+    .input-group label i {
+      color: var(--primary);
+      margin-right: 0.25rem;
+      font-size: 0.85rem;
+    }
+
+    textarea, select, input {
+      width: 100%;
+      padding: 0.875rem;
+      background: var(--bg-main);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+      line-height: 1.6;
+    }
+
+    textarea:focus, select:focus, input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      background: var(--bg-secondary);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+
+    .button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .button:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    .button i, .button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .copy-button {
+      background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    .copy-button:hover {
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+    }
+
+    .result-box {
+      background: var(--bg-main);
+      border: 1.5px solid var(--primary);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      white-space: pre-wrap;
+      font-family: 'Monaco', 'Courier New', monospace;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text);
+      max-height: 450px;
+      overflow-y: auto;
+      box-shadow: 0 4px 12px var(--shadow);
+      animation: slideIn 0.4s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-box::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .result-box::-webkit-scrollbar-track {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    .result-box::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+
+    .tips-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    footer {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      color: var(--text-muted);
+      margin-top: 3rem;
+      box-shadow: 0 -1px 3px var(--shadow);
+    }
+
+    footer p {
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: var(--secondary);
+    }
+
+    .toggle-buttons {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      header p {
+        font-size: 1rem;
+      }
+      
+      .container {
+        padding: 1.5rem 1rem;
+      }
+      
+      .section {
+        padding: 1.5rem;
+      }
+      
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div class="particles" id="particles"></div>
+
+  <header>
+    <div class="header-content">
+      <h1><i class="fas fa-film"></i> Sora 2 Prompt Assistant</h1>
+      <p>Professional cinematic prompt engineering for Sora 2's advanced world simulation</p>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Main Prompt Generator -->
+    <section class="section">
+      <h2><i class="fas fa-wand-magic-sparkles"></i> Cinematic Prompt Generator</h2>
+      <p>Describe your vision and let AI transform it into a professional, production-grade Sora 2 prompt with full cinematic detail.</p>
+      
+      <div class="input-group">
+        <label for="userInput"><i class="fas fa-pen"></i> Your Scene Idea</label>
+        <textarea id="userInput" placeholder="E.g., A climber reaching a summit at golden hour..."></textarea>
+      </div>
+
+      <div class="input-group">
+        <label for="modelSelect"><i class="fas fa-brain"></i> Venice AI Model</label>
+        <select id="modelSelect">
+          <option value="">Loading models...</option>
+        </select>
+      </div>
+
+      <div class="toggle-buttons">
+        <button id="generateBtn" class="button">
+          <i class="fas fa-magic"></i>
+          <span>Generate Professional Prompt</span>
+        </button>
+        <button id="copyBtn" class="button copy-button" style="display: none;">
+          <i class="fas fa-copy"></i>
+          <span>Copy to Clipboard</span>
+        </button>
+      </div>
+
+      <div id="result" style="display: none;"></div>
+    </section>
+
+    <!-- Prompt Scaffold Template -->
+    <section class="section">
+      <h2><i class="fas fa-layer-group"></i> Professional Prompt Scaffold</h2>
+      <p>Expand sections below to see the comprehensive template for production-quality Sora 2 prompts.</p>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-crosshairs"></i> Primary Target & Visuals</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p><strong>First read:</strong> [1–2 vivid foreground actions that define the scene]<br>
+          <strong>Second read:</strong> [secondary environment details revealed after first glance]<br>
+          <strong>Expression/read:</strong> [how the subject should "feel" on screen]<br>
+          <em>Example: predatory calm / effortless power</em></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-video"></i> Format & Look</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>[duration in seconds]; [resolution]; [shutter]; [sensor emulation]; [grain/halation]; [stability/gate weave notes]<br>
+          <em>Example: 10.0s; 4K; 180° shutter; large-format sensor emulation; fine grain</em></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-camera"></i> Lenses & Filtration</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p><strong>Hero:</strong> [focal length & lens type] on [mount/platform & move]<br>
+          <strong>Filtration:</strong> [diffusion & polarization notes, and why]<br>
+          <em>Example: 50mm spherical; gyro-stabilized tracking; Black Pro-Mist 1/8; light polarizer</em></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-palette"></i> Grade / Palette</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p><strong>Highlights:</strong> [tone & roll-off] | <strong>Mids:</strong> [hue/materials]<br>
+          <strong>Shadows:</strong> [tone & detail] | <strong>Rim/separation:</strong> [warm/cool accents]<br>
+          <strong>Speculars:</strong> [tight/soft]<br>
+          <em>Example: Highlights cool white; mids steel-blue; shadows slate/teal; warm rim light</em></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-sun"></i> Lighting & Atmosphere</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>[key/sun position]; [wind/haze/particulates]; [environmental bursts]; [condensation/breath/etc.]<br>
+          <em>Example: Low sun cross-key; haze for depth; drifting snow; faint breath vapor</em></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-location-dot"></i> Location & Framing</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>[terrain/architecture]; [camera path & altitude]; [compositional diagonals/lines]; [foreground parallax cues]; [presence/absence of human structures]<br>
+          <em>Example: Serac field; parallel track with slight inward arc; foreground parallax</em></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-volume-high"></i> Sound Design</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>[ambient bed]; [punctuating SFX synced to action]; [dialogue beats if any, who speaks and when]; [score/no score]<br>
+          <em>Example: High-air wind; ice creaks; no score; diegetic SFX</em><br>
+          <small>💡 Sora 2 supports synchronized dialogue/SFX</small></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-list-ol"></i> Optimized Shot List</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p><strong>[#] shot(s) / [total duration]</strong><br>
+          [0.0–X.X] — "[shot label]" ([lens], [mount/move])<br>
+          [Beat-by-beat action with cause→effect physics, camera timing notes, and how the motion reads]<br>
+          <small>💡 Model handles failure & rebound realism</small></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-note-sticky"></i> Camera Notes</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>[why this focal length & move sell scale/speed]; [how filtration/lighting aid silhouette & material read]; [which near-miss/parallax cues sell velocity]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tips & Tricks -->
+    <section class="section">
+      <h2><i class="fas fa-lightbulb"></i> Sora 2 Pro Tips & Tricks</h2>
+      <p>Expand to master Sora 2's advanced capabilities with these essential techniques.</p>
+      
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-film"></i> Cinematic Prompts</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Sora 2 responds exceptionally well to detailed production-style briefs. Treat your prompt like a director's slate with <strong>duration, resolution, shutter, lens, filtration, grade, lighting, and sound</strong>.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-list-check"></i> Multi-Step Instructions</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Sora 2 tracks world state across shots. Write <strong>sequences rather than single moments</strong>—it keeps objects and characters consistent throughout complex narratives.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-atom"></i> Physics Awareness</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Describe actions with realistic <strong>cause-and-effect</strong> (missed shots that rebound, buoyant boards that flex, gymnastic routines). Sora 2 is notably better at obeying physical laws.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-volume-up"></i> Audio Synchronization</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Prompt for <strong>synchronized dialogue, sound effects, and background soundscapes</strong>. Include who speaks, when, and what the environment should sound like.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-user"></i> Cameos Feature</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Record your likeness once in the app, then drop yourself (or friends) into any scene—<strong>appearance and voice are preserved</strong>. Great for rapid, personal storytelling.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-person-falling"></i> Include Failures</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Because Sora 2 models failure (not just success), you can prompt beats where things don't work (a miss, a slip, a wobble) to <strong>enhance realism and narrative</strong>.</p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-star"></i> Iterate & Refine</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Expect big leaps in realism—but not perfection. The model still makes mistakes. <strong>Iterate and refine prompts</strong>, especially on edge-case physics or highly specific details.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Creative Ideas -->
+    <section class="section">
+      <h2><i class="fas fa-sparkles"></i> Creative Ideas for Sora 2</h2>
+      <p>Leverage Sora 2's improved physics, audio synchronization, and world simulation with these inspiring concepts.</p>
+      
+      <div class="grid">
+        <div class="card">
+          <h3><i class="fas fa-medal"></i> Olympic Gymnastics</h3>
+          <p>Generate a sequence of a gymnast performing flips on a balance beam. Describe the gym, athlete's attire, slow-motion shots, and the flexing beam to showcase realistic physics.</p>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-water"></i> Paddleboard Backflip</h3>
+          <p>Imagine a surfer doing a backflip on a paddleboard in a calm lagoon. Mention turquoise water, ripples, splashes, and the camera tracking from multiple angles.</p>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-dragon"></i> Anime Battle Scene</h3>
+          <p>Create an anime fight with dynamic angles, motion lines, and glowing effects. Specify vivid colors and a dramatic orchestral soundtrack synchronized to the action.</p>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-landmark"></i> Historical Drama Cameo</h3>
+          <p>Drop yourself and a friend into a medieval village festival. Detail clothing, dialogue, and ambient sounds like market chatter, horses, and music.</p>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-rocket"></i> Sci-Fi Exploration</h3>
+          <p>Generate explorers walking through a neon-lit alien city. Include floating vehicles, holographic signage, and a synth-wave soundtrack fading into ambient noise.</p>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-leaf"></i> Nature Documentary</h3>
+          <p>Simulate a time-lapse of a seed sprouting into a tree with changing daylight and weather. Add narration and realistic sounds of wind and birds.</p>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-paw"></i> Fantasy Creature Cameo</h3>
+          <p>Insert your pet into a world of dragons. Describe the dragon's scales, fire glow, and your pet's curious reaction using Sora 2's accurate appearance recreation.</p>
+        </div>
+
+        <div class="card">
+          <h3><i class="fas fa-mountain"></i> Arctic Expedition</h3>
+          <p>An explorer traversing a frozen serac field at golden hour. Low sun cross-key lighting, breath vapor, drifting snow, gyro-stabilized tracking shot with Black Pro-Mist filtration.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p><i class="fas fa-code"></i> Sora 2 Professional Prompt Assistant</p>
+    <p style="margin-top: 0.5rem; font-size: 0.85rem;">Developed by <strong>Vivek</strong> | Powered by Venice AI</p>
+  </footer>
+
+  <script>
+    // Create animated particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Fetch real models from Venice API
+    async function fetchModels() {
+      const modelSelect = document.getElementById('modelSelect');
+      
+      try {
+        const response = await fetch('https://api.venice.ai/api/v1/models');
+        const data = await response.json();
+        
+        if (data.data && Array.isArray(data.data)) {
+          modelSelect.innerHTML = '';
+          
+          data.data.forEach(model => {
+        const option = document.createElement('option');
+        option.value = model.id;
+            option.textContent = model.id;
+            modelSelect.appendChild(option);
+          });
+        } else {
+          loadDefaultModels();
+        }
+      } catch (error) {
+        console.error('Error fetching models:', error);
+        loadDefaultModels();
+      }
+    }
+
+    // Fallback default models if API fails
+    function loadDefaultModels() {
+      const modelSelect = document.getElementById('modelSelect');
+      const defaultModels = [
+        'llama-3.3-70b',
+        'llama-3.1-405b',
+        'qwen-2.5-qwq-32b',
+        'qwen3-235b'
+      ];
+      
+      modelSelect.innerHTML = '';
+      defaultModels.forEach(modelId => {
+        const option = document.createElement('option');
+        option.value = modelId;
+        option.textContent = modelId;
+        modelSelect.appendChild(option);
+      });
+    }
+
+    // Generate professional Sora 2 prompt using Venice API
+    async function generatePrompt() {
+      const userInput = document.getElementById('userInput').value.trim();
+      const modelId = document.getElementById('modelSelect').value;
+      const resultDiv = document.getElementById('result');
+      const generateBtn = document.getElementById('generateBtn');
+      const copyBtn = document.getElementById('copyBtn');
+      
+      if (!userInput) {
+        alert('Please describe your scene idea first!');
+        return;
+      }
+      
+      if (!modelId) {
+        alert('Please select a model!');
+        return;
+      }
+      
+      // Show loading state
+      generateBtn.innerHTML = '<div class="loading"></div> <span>Generating...</span>';
+      generateBtn.disabled = true;
+      resultDiv.style.display = 'block';
+      resultDiv.className = 'result-box';
+      resultDiv.textContent = 'Crafting your professional cinematic prompt...';
+      
+      const systemPrompt = `You are an expert Sora 2 prompt engineer with deep knowledge of cinematography, production, and visual storytelling.
+
+CRITICAL SORA 2 CAPABILITIES TO LEVERAGE:
+• Multi-step world state tracking: Write SEQUENCES, not single moments. Sora 2 tracks objects/characters across complex narratives.
+• Physics-aware: Include realistic cause→effect (rebounds, flex, buoyancy). Sora 2 models FAILURE realistically (misses, slips, wobbles) for enhanced realism.
+• Audio synchronization: Always specify synchronized dialogue, SFX, and ambient soundscapes with timing.
+• Cinematic precision: Treat this like a director's slate—duration, resolution, shutter, lens, filtration, grade, lighting, and sound are all critical.
+
+Transform the user's idea into a comprehensive, production-grade Sora 2 prompt following this structure:
+
+PRIMARY TARGET & VISUALS
+First read: [1-2 vivid foreground actions defining the scene]
+Second read: [secondary environment details revealed after first glance]
+Expression/read: [how subject should "feel" on screen, e.g., predatory calm / effortless power]
+
+FORMAT & LOOK
+[duration in seconds]; [resolution (e.g., 4K)]; [shutter angle]; [sensor emulation]; [grain/halation notes]
+
+LENSES & FILTRATION
+Hero: [focal length & lens type] on [mount/platform & movement]
+Filtration: [diffusion & polarization with technical reasoning]
+
+GRADE/PALETTE
+Highlights: [tone & roll-off]; Mids: [hue/materials]; Shadows: [tone & detail]; Rim: [warm/cool accents]; Speculars: [tight/soft]
+
+LIGHTING & ATMOSPHERE
+[key/sun position]; [wind/haze/particulates]; [environmental bursts]; [condensation/breath/vapor]
+
+LOCATION & FRAMING
+[terrain/architecture]; [camera path & altitude]; [compositional lines]; [foreground parallax cues]
+
+SOUND (CRITICAL FOR SORA 2)
+[ambient bed]; [punctuating SFX synced to specific action beats]; [dialogue: who speaks, when, what]; [score or no score]
+
+OPTIMIZED SHOT LIST (Multi-step sequence with physics)
+[0.0–X.Xs] — "[shot label]" ([lens], [mount/move])
+[Beat-by-beat action with cause→effect physics, include potential failures/wobbles for realism, camera timing notes]
+
+CAMERA NOTES
+[Why this focal length & move sell scale/speed]; [How filtration/lighting aid material read]; [Which parallax cues sell velocity]
+
+FINISHING
+[Final creative intent in one sentence]
+
+Be hyper-specific, technical, and cinematic. Use professional terminology. Make it a SEQUENCE with realistic physics and synchronized audio.`;
+
+      try {
+        const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer xFfWapiZ4IAnA9pXk0AelmZh9UHstwVyZKLo_4kcDh'
+          },
+          body: JSON.stringify({
+            model: modelId,
+            messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userInput }
+            ],
+            temperature: 0.8,
+            max_tokens: 1000
+          })
+        });
+        
+        const data = await response.json();
+        
+        if (data.choices && data.choices.length > 0) {
+          const generatedPrompt = data.choices[0].message.content.trim();
+          resultDiv.textContent = generatedPrompt;
+          copyBtn.style.display = 'inline-flex';
+        } else {
+          resultDiv.textContent = 'No response received. Please try again.';
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        resultDiv.textContent = 'Error generating prompt. Please check your connection and try again.';
+      } finally {
+        generateBtn.innerHTML = '<i class="fas fa-magic"></i> <span>Generate Professional Prompt</span>';
+        generateBtn.disabled = false;
+      }
+    }
+
+    // Copy result to clipboard
+    function copyToClipboard() {
+      const resultDiv = document.getElementById('result');
+      const text = resultDiv.textContent;
+      
+      navigator.clipboard.writeText(text).then(() => {
+        const copyBtn = document.getElementById('copyBtn');
+        const originalHTML = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> <span>Copied!</span>';
+        
+        setTimeout(() => {
+          copyBtn.innerHTML = originalHTML;
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        alert('Failed to copy to clipboard');
+      });
+    }
+
+    // Toggle accordion sections
+    function toggleAccordion(header) {
+      const content = header.nextElementSibling;
+      const isActive = header.classList.contains('active');
+      
+      // Close all accordions
+      document.querySelectorAll('.accordion-header').forEach(h => {
+        h.classList.remove('active');
+        h.nextElementSibling.classList.remove('active');
+      });
+      
+      // If it wasn't active, open it
+      if (!isActive) {
+        header.classList.add('active');
+        content.classList.add('active');
+      }
+    }
+
+    // Event listeners
+    document.getElementById('generateBtn').addEventListener('click', generatePrompt);
+    document.getElementById('copyBtn').addEventListener('click', copyToClipboard);
+
+    // Initialize
+    createParticles();
+    fetchModels();
+  </script>
+</body>
+</html>

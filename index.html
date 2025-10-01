@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Spectral:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -32,13 +32,14 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg-main);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.7;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      font-size: 16px;
     }
 
     /* Animated background pattern */
@@ -87,16 +88,16 @@
     }
 
     header h1 {
-      font-family: 'Spectral', Georgia, serif;
+      font-family: 'Lato', sans-serif;
       font-size: 2.75rem;
-      font-weight: 600;
+      font-weight: 900;
       background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 0.75rem;
       animation: fadeInDown 0.8s ease-out;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
 
     header p {
@@ -159,15 +160,15 @@
     }
 
     .section h2 {
-      font-family: 'Spectral', Georgia, serif;
+      font-family: 'Lato', sans-serif;
       font-size: 1.75rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text);
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      letter-spacing: -0.005em;
+      letter-spacing: -0.01em;
     }
 
     .section h2 i {
@@ -545,12 +546,7 @@
         <textarea id="userInput" placeholder="E.g., A climber reaching a summit at golden hour..."></textarea>
       </div>
 
-      <div class="input-group">
-        <label for="modelSelect"><i class="fas fa-brain"></i> Venice AI Model</label>
-        <select id="modelSelect">
-          <option value="">Loading models...</option>
-        </select>
-      </div>
+      <input type="hidden" id="modelSelect" value="llama-3.3-70b">
 
       <div class="toggle-buttons">
         <button id="generateBtn" class="button">
@@ -568,112 +564,112 @@
 
     <!-- Prompt Scaffold Template -->
     <section class="section">
-      <h2><i class="fas fa-layer-group"></i> Professional Prompt Scaffold</h2>
-      <p>Expand sections below to see the comprehensive template for production-quality Sora 2 prompts.</p>
+      <h2><i class="fas fa-layer-group"></i> Official Sora 2 Prompt Structure</h2>
+      <p>Based on the official Sora 2 guide. Use this 9-step template for maximum control, realism, and audio synchronization.</p>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-crosshairs"></i> Primary Target & Visuals</div>
+          <div class="accordion-title"><i class="fas fa-bullseye"></i> 1. Primary Intent</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p><strong>First read:</strong> [1–2 vivid foreground actions that define the scene]<br>
-          <strong>Second read:</strong> [secondary environment details revealed after first glance]<br>
-          <strong>Expression/read:</strong> [how the subject should "feel" on screen]<br>
-          <em>Example: predatory calm / effortless power</em></p>
+          <p><strong>One sentence:</strong> What happens and why (emotional or narrative purpose)<br>
+          <em>Example: Deliver scale and tactile realism while showing creature motion.</em></p>
         </div>
       </div>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-video"></i> Format & Look</div>
+          <div class="accordion-title"><i class="fas fa-film"></i> 2. Shot Sequence (Ordered)</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p>[duration in seconds]; [resolution]; [shutter]; [sensor emulation]; [grain/halation]; [stability/gate weave notes]<br>
+          <p><strong>Numbered shots with timecode, action, beats, continuity:</strong><br>
+          Shot 1 (0.0–3.5s): [Action and camera movement]<br>
+          Shot 2 (3.5–7.0s): [Include natural failure/miss/wobble for realism]<br>
+          Shot 3 (7.0–10.0s): [Resolution with clear cause→effect]<br>
+          <small>💡 Sora 2 maintains world state across cuts</small></p>
+        </div>
+      </div>
+
+      <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title"><i class="fas fa-clapperboard"></i> 3. Look & Format</div>
+          <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+          <p>Resolution, frame length, camera sensor emulation, shutter, film grain<br>
           <em>Example: 10.0s; 4K; 180° shutter; large-format sensor emulation; fine grain</em></p>
         </div>
       </div>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-camera"></i> Lenses & Filtration</div>
+          <div class="accordion-title"><i class="fas fa-camera"></i> 4. Camera & Lens Notes</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p><strong>Hero:</strong> [focal length & lens type] on [mount/platform & move]<br>
-          <strong>Filtration:</strong> [diffusion & polarization notes, and why]<br>
-          <em>Example: 50mm spherical; gyro-stabilized tracking; Black Pro-Mist 1/8; light polarizer</em></p>
+          <p><strong>Lens:</strong> Focal length; <strong>Rig:</strong> handheld/drone/gyro; <strong>Motion:</strong> track/push/arc<br>
+          <em>Example: 50mm spherical; gyro-stabilized drone; parallel track with slight inward arc</em></p>
         </div>
       </div>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-palette"></i> Grade / Palette</div>
+          <div class="accordion-title"><i class="fas fa-sun"></i> 5. Lighting & Atmosphere</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p><strong>Highlights:</strong> [tone & roll-off] | <strong>Mids:</strong> [hue/materials]<br>
-          <strong>Shadows:</strong> [tone & detail] | <strong>Rim/separation:</strong> [warm/cool accents]<br>
-          <strong>Speculars:</strong> [tight/soft]<br>
-          <em>Example: Highlights cool white; mids steel-blue; shadows slate/teal; warm rim light</em></p>
+          <p>Key direction, time of day, weather, particulate effects<br>
+          <em>Example: Late-afternoon cross-key; thin frozen haze; rim warm amber; breath vapor visible</em></p>
         </div>
       </div>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-sun"></i> Lighting & Atmosphere</div>
+          <div class="accordion-title"><i class="fas fa-tshirt"></i> 6. Surface & Costume Reads</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p>[key/sun position]; [wind/haze/particulates]; [environmental bursts]; [condensation/breath/etc.]<br>
-          <em>Example: Low sun cross-key; haze for depth; drifting snow; faint breath vapor</em></p>
+          <p>Material finishes and microdetail cues that affect lighting<br>
+          <em>Example: Semi-iridescent scales with micro-frost on leading edges; worn leather jacket with water beading</em></p>
         </div>
       </div>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-location-dot"></i> Location & Framing</div>
+          <div class="accordion-title"><i class="fas fa-volume-high"></i> 7. Sound & Dialogue Timing</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p>[terrain/architecture]; [camera path & altitude]; [compositional diagonals/lines]; [foreground parallax cues]; [presence/absence of human structures]<br>
-          <em>Example: Serac field; parallel track with slight inward arc; foreground parallax</em></p>
+          <p><strong>Diegetic sounds:</strong> [with timing]<br>
+          <strong>SFX:</strong> [specific sounds synced to actions, timestamps]<br>
+          <strong>Dialogue:</strong> [exact line, who speaks at X.Xs, cadence]<br>
+          <strong>Score:</strong> [present/absent + style]<br>
+          <small>💡 Audio synchronization is a core Sora 2 feature - always specify timing precisely</small></p>
         </div>
       </div>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-volume-high"></i> Sound Design</div>
+          <div class="accordion-title"><i class="fas fa-palette"></i> 8. Finishing & Grade</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p>[ambient bed]; [punctuating SFX synced to action]; [dialogue beats if any, who speaks and when]; [score/no score]<br>
-          <em>Example: High-air wind; ice creaks; no score; diegetic SFX</em><br>
-          <small>💡 Sora 2 supports synchronized dialogue/SFX</small></p>
+          <p>Grain, halation, dynamic balance, poster frame<br>
+          <em>Example: Very fine grain; minimal halation; preserved multiband dynamics; poster frame at 4.2s</em></p>
         </div>
       </div>
 
       <div class="accordion">
         <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-list-ol"></i> Optimized Shot List</div>
+          <div class="accordion-title"><i class="fas fa-shield-alt"></i> 9. Safety / Cameo Controls</div>
           <i class="fas fa-chevron-down accordion-icon"></i>
         </div>
         <div class="accordion-content">
-          <p><strong>[#] shot(s) / [total duration]</strong><br>
-          [0.0–X.X] — "[shot label]" ([lens], [mount/move])<br>
-          [Beat-by-beat action with cause→effect physics, camera timing notes, and how the motion reads]<br>
-          <small>💡 Model handles failure & rebound realism</small></p>
-        </div>
-      </div>
-
-      <div class="accordion">
-        <div class="accordion-header" onclick="toggleAccordion(this)">
-          <div class="accordion-title"><i class="fas fa-note-sticky"></i> Camera Notes</div>
-          <i class="fas fa-chevron-down accordion-icon"></i>
-        </div>
-        <div class="accordion-content">
-          <p>[why this focal length & move sell scale/speed]; [how filtration/lighting aid silhouette & material read]; [which near-miss/parallax cues sell velocity]</p>
+          <p><strong>If using real people:</strong> Include cameo verification and consent controls<br>
+          <em>Example: "cameo: upload-verify-allowed; only [user] may grant reuse; revoke with ID"</em><br>
+          <small>💡 Sora 2 supports accurate likeness insertion with consent controls</small></p>
         </div>
       </div>
     </section>
@@ -823,50 +819,7 @@
       }
     }
 
-    // Fetch real models from Venice API
-    async function fetchModels() {
-      const modelSelect = document.getElementById('modelSelect');
-      
-      try {
-        const response = await fetch('https://api.venice.ai/api/v1/models');
-        const data = await response.json();
-        
-        if (data.data && Array.isArray(data.data)) {
-          modelSelect.innerHTML = '';
-          
-          data.data.forEach(model => {
-        const option = document.createElement('option');
-        option.value = model.id;
-            option.textContent = model.id;
-            modelSelect.appendChild(option);
-          });
-        } else {
-          loadDefaultModels();
-        }
-      } catch (error) {
-        console.error('Error fetching models:', error);
-        loadDefaultModels();
-      }
-    }
-
-    // Fallback default models if API fails
-    function loadDefaultModels() {
-      const modelSelect = document.getElementById('modelSelect');
-      const defaultModels = [
-        'llama-3.3-70b',
-        'llama-3.1-405b',
-        'qwen-2.5-qwq-32b',
-        'qwen3-235b'
-      ];
-      
-      modelSelect.innerHTML = '';
-      defaultModels.forEach(modelId => {
-        const option = document.createElement('option');
-        option.value = modelId;
-        option.textContent = modelId;
-        modelSelect.appendChild(option);
-      });
-    }
+    // Model is hardcoded to llama-3.3-70b for optimal Sora 2 prompt generation
 
     // Generate professional Sora 2 prompt using Venice API
     async function generatePrompt() {
@@ -893,59 +846,55 @@
       resultDiv.className = 'result-box';
       resultDiv.textContent = 'Crafting your professional cinematic prompt...';
       
-      const systemPrompt = `You are an expert Sora 2 prompt engineer. Sora 2 excels at:
+      const systemPrompt = `You are a Sora 2 prompt engineer. Sora 2 is a video+audio generation model that emphasizes physical realism, scene persistence, synchronized dialogue/sound, and high controllability.
 
-1. MULTI-STEP SEQUENCES: Describe actions as a SEQUENCE across time (0.0s to 10.0s), not a static scene. Sora 2 maintains world state and object permanence.
+CORE PRINCIPLES:
+• Be concrete about physics and failures for realistic motion (rebounds, buoyancy, object permanence)
+• Break multi-shot sequences into ordered shots to maintain world state across cuts
+• Include sensory layers: diegetic sound, speech timing, specific SFX cues
+• Use short, labeled micro-specs for technical camera choices
+• Treat the model like a director: specify intent, motion, camera, lighting, sound, continuity
 
-2. REALISTIC PHYSICS: Explicitly describe cause-and-effect. Include natural failures (missed catches, slips, wobbles, rebounds) for authenticity. Sora 2 understands material properties.
+Transform user's idea using this EXACT structure with labeled lines:
 
-3. SYNCHRONIZED AUDIO: ALWAYS specify dialogue (who speaks what, when), environmental sounds (wind, footsteps, impacts), and music/score timing. Audio is a core Sora 2 feature.
+━━━━━━━━━━━━━━━━━━━━━━
+PRIMARY INTENT
+[One sentence: what happens and why - emotional/narrative purpose]
 
-4. CINEMATOGRAPHY LANGUAGE: Use film production terminology - focal lengths, shutter angles, sensor formats, filtration, color grading specifics.
+SHOT SEQUENCE (ORDERED)
+Shot 1 (0.0–3.5s): [Timecode, action, important beats, continuity notes]
+Shot 2 (3.5–7.0s): [Include a natural failure/miss/wobble for realism]
+Shot 3 (7.0–10.0s): [Resolution with clear cause→effect]
 
-Transform the user's idea into this exact format:
-
----
-FORMAT & LOOK
+LOOK & FORMAT
 10.0s; 4K; 180° shutter; large-format sensor emulation; fine grain
 
-LENSES & FILTRATION  
-[focal length]mm spherical; [movement type]; Black Pro-Mist 1/8; light polarizer
-
-GRADE/PALETTE
-Highlights: [color/tone]; Mids: [color/material feel]; Shadows: [color/tone]; Rim: warm/cool accent
+CAMERA & LENS NOTES
+Lens: [focal length]mm spherical; Rig: [handheld/drone/gyro]; Motion: [track/push/arc]
 
 LIGHTING & ATMOSPHERE
-[time of day + direction]; haze/fog for depth; [weather elements]; [vapor/breath/particles]
+Key: [direction, time of day]; Weather: [conditions]; Particulates: [haze/fog/breath vapor]
 
-PRIMARY ACTION (First Read)
-[2 sentences: vivid foreground action, protagonist doing what]
+SURFACE & COSTUME READS
+Materials: [finishes and microdetail that affect lighting]
 
-SECONDARY READ
-[1 sentence: background details, environment specifics]
-
-LOCATION & FRAMING
-[terrain type]; [camera move + altitude]; foreground parallax elements; [human presence y/n]
-
-SOUND DESIGN
-Ambient: [constant background]
-SFX: [specific sounds synced to actions, with timing]
-Dialogue: [if any - who says what at X.Xs]
+SOUND & DIALOGUE TIMING
+Diegetic sounds: [list with timing]
+SFX: [specific sounds synced to actions with timestamps]
+Dialogue: [exact lines, who speaks at X.Xs, cadence]
 Score: [present/absent + style]
 
-SHOT LIST (10.0 seconds)
-0.0–3.0s: [Action beat 1 with camera note]
-3.0–6.5s: [Action beat 2, include a natural failure/wobble]
-6.5–10.0s: [Action beat 3 with resolution, cause→effect clear]
+FINISHING & GRADE
+Grain: [fine/medium]; Halation: [yes/no]; Dynamic balance: [specify]; Poster frame: [when]
+━━━━━━━━━━━━━━━━━━━━━━
 
-CAMERA NOTES
-[Why this lens/move sells the scale/emotion; how filtration aids the read]
-
-INTENT
-[One sentence: the emotional/narrative goal]
----
-
-Keep it under 400 words. Be technical. Make it feel REAL with natural imperfections.`;
+IMPORTANT:
+- Keep physics plausible with realistic failures
+- Always specify audio timing precisely
+- Use film production terminology
+- Break into ordered, numbered shots for multi-shot sequences
+- Keep under 350 words total
+- Make it concrete and technically specific`;
 
       try {
         const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
@@ -1026,7 +975,6 @@ Keep it under 400 words. Be technical. Make it feel REAL with natural imperfecti
 
     // Initialize
     createParticles();
-    fetchModels();
   </script>
 </body>
 </html>

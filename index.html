@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Spectral:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -32,11 +32,13 @@
     }
 
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: var(--bg-main);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.65;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* Animated background pattern */
@@ -85,16 +87,16 @@
     }
 
     header h1 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Spectral', Georgia, serif;
       font-size: 2.75rem;
-      font-weight: 700;
+      font-weight: 600;
       background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 0.75rem;
       animation: fadeInDown 0.8s ease-out;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
     }
 
     header p {
@@ -157,15 +159,15 @@
     }
 
     .section h2 {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Spectral', Georgia, serif;
       font-size: 1.75rem;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--text);
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.005em;
     }
 
     .section h2 i {
@@ -891,51 +893,59 @@
       resultDiv.className = 'result-box';
       resultDiv.textContent = 'Crafting your professional cinematic prompt...';
       
-      const systemPrompt = `You are an expert Sora 2 prompt engineer with deep knowledge of cinematography, production, and visual storytelling.
+      const systemPrompt = `You are an expert Sora 2 prompt engineer. Sora 2 excels at:
 
-CRITICAL SORA 2 CAPABILITIES TO LEVERAGE:
-• Multi-step world state tracking: Write SEQUENCES, not single moments. Sora 2 tracks objects/characters across complex narratives.
-• Physics-aware: Include realistic cause→effect (rebounds, flex, buoyancy). Sora 2 models FAILURE realistically (misses, slips, wobbles) for enhanced realism.
-• Audio synchronization: Always specify synchronized dialogue, SFX, and ambient soundscapes with timing.
-• Cinematic precision: Treat this like a director's slate—duration, resolution, shutter, lens, filtration, grade, lighting, and sound are all critical.
+1. MULTI-STEP SEQUENCES: Describe actions as a SEQUENCE across time (0.0s to 10.0s), not a static scene. Sora 2 maintains world state and object permanence.
 
-Transform the user's idea into a comprehensive, production-grade Sora 2 prompt following this structure:
+2. REALISTIC PHYSICS: Explicitly describe cause-and-effect. Include natural failures (missed catches, slips, wobbles, rebounds) for authenticity. Sora 2 understands material properties.
 
-PRIMARY TARGET & VISUALS
-First read: [1-2 vivid foreground actions defining the scene]
-Second read: [secondary environment details revealed after first glance]
-Expression/read: [how subject should "feel" on screen, e.g., predatory calm / effortless power]
+3. SYNCHRONIZED AUDIO: ALWAYS specify dialogue (who speaks what, when), environmental sounds (wind, footsteps, impacts), and music/score timing. Audio is a core Sora 2 feature.
 
+4. CINEMATOGRAPHY LANGUAGE: Use film production terminology - focal lengths, shutter angles, sensor formats, filtration, color grading specifics.
+
+Transform the user's idea into this exact format:
+
+---
 FORMAT & LOOK
-[duration in seconds]; [resolution (e.g., 4K)]; [shutter angle]; [sensor emulation]; [grain/halation notes]
+10.0s; 4K; 180° shutter; large-format sensor emulation; fine grain
 
-LENSES & FILTRATION
-Hero: [focal length & lens type] on [mount/platform & movement]
-Filtration: [diffusion & polarization with technical reasoning]
+LENSES & FILTRATION  
+[focal length]mm spherical; [movement type]; Black Pro-Mist 1/8; light polarizer
 
 GRADE/PALETTE
-Highlights: [tone & roll-off]; Mids: [hue/materials]; Shadows: [tone & detail]; Rim: [warm/cool accents]; Speculars: [tight/soft]
+Highlights: [color/tone]; Mids: [color/material feel]; Shadows: [color/tone]; Rim: warm/cool accent
 
 LIGHTING & ATMOSPHERE
-[key/sun position]; [wind/haze/particulates]; [environmental bursts]; [condensation/breath/vapor]
+[time of day + direction]; haze/fog for depth; [weather elements]; [vapor/breath/particles]
+
+PRIMARY ACTION (First Read)
+[2 sentences: vivid foreground action, protagonist doing what]
+
+SECONDARY READ
+[1 sentence: background details, environment specifics]
 
 LOCATION & FRAMING
-[terrain/architecture]; [camera path & altitude]; [compositional lines]; [foreground parallax cues]
+[terrain type]; [camera move + altitude]; foreground parallax elements; [human presence y/n]
 
-SOUND (CRITICAL FOR SORA 2)
-[ambient bed]; [punctuating SFX synced to specific action beats]; [dialogue: who speaks, when, what]; [score or no score]
+SOUND DESIGN
+Ambient: [constant background]
+SFX: [specific sounds synced to actions, with timing]
+Dialogue: [if any - who says what at X.Xs]
+Score: [present/absent + style]
 
-OPTIMIZED SHOT LIST (Multi-step sequence with physics)
-[0.0–X.Xs] — "[shot label]" ([lens], [mount/move])
-[Beat-by-beat action with cause→effect physics, include potential failures/wobbles for realism, camera timing notes]
+SHOT LIST (10.0 seconds)
+0.0–3.0s: [Action beat 1 with camera note]
+3.0–6.5s: [Action beat 2, include a natural failure/wobble]
+6.5–10.0s: [Action beat 3 with resolution, cause→effect clear]
 
 CAMERA NOTES
-[Why this focal length & move sell scale/speed]; [How filtration/lighting aid material read]; [Which parallax cues sell velocity]
+[Why this lens/move sells the scale/emotion; how filtration aids the read]
 
-FINISHING
-[Final creative intent in one sentence]
+INTENT
+[One sentence: the emotional/narrative goal]
+---
 
-Be hyper-specific, technical, and cinematic. Use professional terminology. Make it a SEQUENCE with realistic physics and synchronized audio.`;
+Keep it under 400 words. Be technical. Make it feel REAL with natural imperfections.`;
 
       try {
         const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {

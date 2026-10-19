@@ -523,6 +523,7 @@
       }
     }
   </style>
+  <script src="byok.js"></script>
 </head>
 <body>
   <!-- Animated background particles -->
@@ -897,11 +898,13 @@ IMPORTANT:
 - Make it concrete and technically specific`;
 
       try {
+        const k = window.getVeniceKey ? window.getVeniceKey() : '';
+        if (!k) { if (window.openKeyModal) { window.openKeyModal(); return; } alert('Add your Venice API key (click the ⚙ gear) first.'); return; }
         const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer xFfWapiZ4IAnA9pXk0AelmZh9UHstwVyZKLo_4kcDh'
+            'Authorization': 'Bearer ' + (window.getVeniceKey ? (window.getVeniceKey()||'') : '')
           },
           body: JSON.stringify({
             model: modelId,
